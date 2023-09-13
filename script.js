@@ -24,11 +24,13 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.message').textContent = 'correct';
       document.querySelector('.score').textContent = score;
       document.querySelector('body').style.backgroundColor = 'green';
+      gamecount++;
       break;
     case a > num:
       document.querySelector('.message').textContent = 'too high';
       score--;
       document.querySelector('.score').textContent = score;
+
       break;
     case a < num:
       document.querySelector('.message').textContent = 'too low';
@@ -39,13 +41,16 @@ document.querySelector('.check').addEventListener('click', function () {
 });
 
 document.querySelector('.again').addEventListener('click', function () {
-  if (gamecount == 0) {
+  if (gamecount <= 0) {
     document.querySelector('.message').textContent =
       'You havent even started 🤔';
   } else {
-    totalScore += score;
+    if (score > totalScore) {
+      totalScore = score;
+    }
+
     resetCurrentGame();
-    score = 0;
+    score = 20;
     document.querySelector('.highscore').textContent = totalScore;
     document.querySelector('.score').textContent = score;
     num = Math.floor(Math.random() * 10);
